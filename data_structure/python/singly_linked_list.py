@@ -27,15 +27,20 @@ class LinkedList():
         A blank node object to start the singly-linked list
     """
 
-    def __init__(self):
-        # Creates a head node without any data
-        self.head = Node()
+    def __init__(self, sentinel=True):
+        self.sentinel = sentinel
+        if sentinel is True:
+            self.head = Node()
+        else:
+            self.head = None
 
-    def append(self, data):
+    def insert(self, data):
         new_node = Node(data)
-        # Starts at the head, the left most point
+        # Establishes the new node as the head node in the case of there being no sentinal node
+        if self.head is None:
+            self.head = new_node
+            return
         cur = self.head
-        # Iterates through the list to the end, and adds in the new node
         while cur.next is not None:
             cur = cur.next
         cur.next = new_node
@@ -54,8 +59,12 @@ class LinkedList():
             total(int) : total count of the nodes in the singly-linked list
         """
 
+        # If there is no sentinel node, count the head node in the length of the linked-list.
+        if self.sentinel is True:
+            total = 0
+        else:
+            total = 1
         cur = self.head
-        total = 0
         while cur.next is not None:
             total += 1
             cur = cur.next
@@ -74,8 +83,13 @@ class LinkedList():
         Returns:
             contents(list) : A list of the contents of the singly-linked list
         """
+        # The irony of using python's dynamic array implementation of a list to store and present
+        # a singly-linked list is not lost on me.
         contents = []
         cur = self.head
+        # Adds the head node to the contents list if there is no sentinel node
+        if self.sentinel is False:
+            contents.append(cur.data)
 
         while cur.next is not None:
             cur = cur.next
@@ -113,7 +127,7 @@ class LinkedList():
                 else:
                     cur_idx += 1
 
-    def erase(self, index):
+    def delete(self, index):
         if index >= self.length():
             raise IndexError("Index out of range")
         cur = self.head
