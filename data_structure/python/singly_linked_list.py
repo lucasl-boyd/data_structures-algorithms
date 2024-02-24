@@ -1,5 +1,15 @@
 class Node():
-    
+    """
+    Basic Node class used in the LinkedList objects
+
+    ...
+    Atributes
+    ---------
+    data : int
+        Integer value of node
+    next : int
+        Integer value of the next node
+    """
     def __init__(self, data = None):
         self.data = data
         self.next = None
@@ -21,6 +31,9 @@ class LinkedList():
         cur.next = new_node
 
     def length(self):
+        """
+        
+        """
         cur = self.head
         total = 0
         while cur.next != None:
@@ -29,12 +42,21 @@ class LinkedList():
         return total
     
     def display(self):
+        """
+        Displays the contents of the singly-linked list
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
         contents = []
         cur = self.head
         while cur.next != None:
             cur = cur.next
             contents.append(cur.data)
-        print(contents)
+        return contents
 
     def get(self, index):
         if index >= self.length():
@@ -69,10 +91,4 @@ class LinkedList():
 
 
 if __name__ == "__main__":
-    lst = LinkedList()
-    lst.append(3)
-    lst.append(2)
-    lst.append(4)
-    lst.display()
-    lst.erase(2)
-    lst.display()
+    pass
