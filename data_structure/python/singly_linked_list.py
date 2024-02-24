@@ -1,3 +1,4 @@
+"""Module creating Singly-linked lists"""
 class Node():
     """
     Basic Node class used in the LinkedList objects
@@ -43,8 +44,9 @@ class LinkedList():
         """
         Displays the length of the singly-linked list.
 
-        Starts at the head of the singly-linked list and traverses through the length of the nodes, adding one at each iteration
-        to the 'total' variable. Stops and returns total when when cur.next equals None. 
+        Starts at the head of the singly-linked list and traverses through the length of the nodes,
+        adding one at each iteration to the 'total' variable. Stops and returns total when 
+        cur.next equals None. 
 
         Args:
             None
@@ -54,19 +56,18 @@ class LinkedList():
 
         cur = self.head
         total = 0
-        
         while cur.next is not None:
             total += 1
             cur = cur.next
-        
         return total
-    
+
     def display(self):
         """
         Displays the contents of the singly-linked list.
 
-        Starts at the head of the singly-linked list and traverses through the length of the nodes, adding the contents of each
-        node to a python list variable named 'contents' which is returned when cur.next equals None.
+        Starts at the head of the singly-linked list and traverses through the length of the
+        nodes, adding the contents of each node to a python list variable named 'contents' which
+        is returned when cur.next equals None.
 
         Args:
             None
@@ -86,12 +87,13 @@ class LinkedList():
         """
         Returns the value at the selected index.
 
-        First checks the index value to validate if it is within the range of the singly-linked list object. Then starts at the 
-        head and instantiates an index counter variable, cur_idx, and adds to this counter for each node in the singly-linked
-        list that is traversed. Once the proper index is found, the value, cur.data, is returned.
+        First checks the index value to validate if it is within the range of the singly-linked
+        list object. Then starts at the head and instantiates an index counter variable, cur_idx,
+        and adds to this counter for each node in the singly-linked list that is traversed. 
+        Once the proper index is found, the value, cur.data, is returned.
 
-        Technically, linked-lists are not indexed, so the counting variable, cur_idx, is used to abstract an index for the linked
-        list.
+        Technically, linked-lists are not indexed, so the counting variable, cur_idx, is used to
+        abstract an index for the linked list.
 
         Args:
             index(int) : integer value representing the desired index
@@ -112,9 +114,8 @@ class LinkedList():
                     cur_idx += 1
 
     def erase(self, index):
-     if index >= self.length():
+        if index >= self.length():
             raise IndexError("Index out of range")
-     else:
         cur = self.head
         cur_idx = 0
 
@@ -125,5 +126,4 @@ class LinkedList():
             if cur_idx == index:
                 last_node.next = cur.next
                 return
-            else:
-                cur_idx += 1
+            cur_idx += 1
