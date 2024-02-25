@@ -138,17 +138,21 @@ class LinkedList():
         """
         if index >= self.length():
             raise IndexError("Index out of range")
-        else:
-            cur = self.head
-            cur_idx = 0
-
+        cur = self.head
+        cur_idx = 0
+        # Advances the search in the list by one in case there is a sentinel node
+        if self.head.data is None:
             while True:
                 cur = cur.next
                 if cur_idx == index:
                     return cur.data
-                else:
-                    cur_idx += 1
-
+                cur_idx += 1
+        else:
+            while True:
+                if cur_idx == index:
+                    return cur.data
+                cur = cur.next
+                cur_idx += 1
     def delete(self, index):
         if index >= self.length():
             raise IndexError("Index out of range")
