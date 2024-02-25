@@ -35,6 +35,35 @@ class LinkedList():
             self.head = None
 
     def insert(self, data, index=None):
+        """
+        Creates and links nodes to other nodes in the singly-linked list.
+
+        1.  Looks to see if there is a head node. If not, the new node becomes the head node and
+            this is immidiately returned. 
+        
+        2.  If there is a head node already, the code looks at the index parameter. 
+            If there is no index specified, the code will iterate through the nodes in the list 
+            and add the new node at the end. 
+        
+        3.  If there is a head node and an index is specified, the code will either execute an 
+            index=0 or index=n insertion. 
+            
+            index=0 insertion: the code will either delete the sentinel node and replace 
+            it with the new node or it will make the new node the head node, linking to the next 
+            node in both circumstances. 
+            
+            index=n insertion, the code will track two parameters; the prev node and the cur node
+            as well as an abstracted index parameter, cur_idx. The code will loop through, 
+            comparing the supplied index to cur_idx, and when the two match, it will insert the 
+            new_node, point it towards the cur value, and point the prev value towards the inserted
+            new_node.
+
+        Args:
+            data : value that is contained in the node
+            index(int) : integer value stating the index to insert the node at in the linked list.
+        Returns:
+            None  
+        """
         new_node = Node(data)
         # Establishes the new node as the head node in the case of there being no sentinal node
         if self.head is None:
@@ -46,7 +75,7 @@ class LinkedList():
                 cur = cur.next
             cur.next = new_node
         else:
-            if index >= self.length():
+            if index >= self.length() and self.head.data is not None:
                 raise IndexError("Index is out of range")
             if index == 0:
                 if self.head.data is None:
@@ -71,17 +100,31 @@ class LinkedList():
                 # count and find the right value.
                 prev = self.head
                 cur = self.head.next
-                cur_idx = 1
-                while True:
-                    if cur_idx == index:
-                        temp_node = cur
-                        cur = new_node
-                        cur.next = temp_node
-                        prev.next = cur
-                        return
-                    prev = prev.next
-                    cur = cur.next
-                    cur_idx += 1
+                if self.head.data is None:
+                    cur_idx = 0
+                    while True:
+                        if cur_idx == index:
+                            temp_node = cur
+                            cur = new_node
+                            cur.next = temp_node
+                            prev.next = cur
+                            return
+                        prev = prev.next
+                        cur = cur.next
+                        cur_idx += 1
+                else:
+                    cur_idx = 1
+                    while True:
+                        if cur_idx == index:
+                            temp_node = cur
+                            cur = new_node
+                            cur.next = temp_node
+                            prev.next = cur
+                            return
+                        prev = prev.next
+                        cur = cur.next
+                        cur_idx += 1
+
 
     def length(self):
         """
@@ -107,6 +150,7 @@ class LinkedList():
             total += 1
             cur = cur.next
         return total
+
 
     def display(self):
         """
@@ -135,6 +179,7 @@ class LinkedList():
 
         return contents
 
+
     def get_value(self, index):
         """
         Returns the value at the selected index.
@@ -150,7 +195,7 @@ class LinkedList():
         Args:
             index(int) : integer value representing the desired index
         Returns:
-            cur.data(int) : the value of the node at the desired index
+            cur.data : the value of the node at the desired index
         """
         if index >= self.length():
             raise IndexError("Index out of range")
@@ -169,6 +214,8 @@ class LinkedList():
                     return cur.data
                 cur = cur.next
                 cur_idx += 1
+
+
     def delete(self, index):
         if index >= self.length():
             raise IndexError("Index out of range")
