@@ -34,16 +34,38 @@ class LinkedList():
         else:
             self.head = None
 
-    def insert(self, data):
+    def insert(self, data, index=None):
         new_node = Node(data)
         # Establishes the new node as the head node in the case of there being no sentinal node
         if self.head is None:
             self.head = new_node
             return
-        cur = self.head
-        while cur.next is not None:
-            cur = cur.next
-        cur.next = new_node
+        if index is None:
+            cur = self.head
+            while cur.next is not None:
+                cur = cur.next
+            cur.next = new_node
+        else:
+            if index >= self.length():
+                raise IndexError("Index is out of range")
+            if index == 0:
+                if self.head.data is None:
+                    # Since the head node is a sentinel node, it contains no values and will be
+                    # effectively removed from the linked list. As such, we need to maintain
+                    # a pointer to the next node in the list.
+                    next_pointer = self.head.next
+                    self.head = new_node
+                    self.head.next = next_pointer
+                else:
+                    # Since the old head node is not a sentinel node and will be retained,
+                    # we will just be adding in a new node that points to the old head node.
+                    # The old head node will retain its link to the next node in the list so
+                    # the integrity of the linked list will be maintained. 
+                    temp_node = self.head
+                    self.head = new_node
+                    self.head.next = temp_node
+            else:
+                pass
 
     def length(self):
         """
@@ -88,7 +110,7 @@ class LinkedList():
         contents = []
         cur = self.head
         # Adds the head node to the contents list if there is no sentinel node
-        if self.sentinel is False:
+        if cur.data is not None:
             contents.append(cur.data)
 
         while cur.next is not None:
