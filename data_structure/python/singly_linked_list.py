@@ -141,7 +141,7 @@ class LinkedList():
         """
 
         # If there is no sentinel node, count the head node in the length of the linked-list.
-        if self.sentinel is True:
+        if self.head.data is None:
             total = 0
         else:
             total = 1
@@ -152,7 +152,7 @@ class LinkedList():
         return total
 
 
-    def display(self):
+    def display(self, mem=False):
         """
         Displays the contents of the singly-linked list.
 
@@ -161,9 +161,9 @@ class LinkedList():
         is returned when cur.next equals None.
 
         Args:
-            None
+            mem(bool) : dictates if the memory location of the nodes are added in tuple to the list
         Returns:
-            contents(list) : A list of the contents of the singly-linked list
+            contents(list) : a list of the contents of the singly-linked list
         """
         # The irony of using python's dynamic array implementation of a list to store and present
         # a singly-linked list is not lost on me.
@@ -175,7 +175,10 @@ class LinkedList():
 
         while cur.next is not None:
             cur = cur.next
-            contents.append(cur.data)
+            if mem is False:
+                contents.append(cur.data)
+            else:
+                contents.append((cur.data, hex(id(cur))))
 
         return contents
 
@@ -217,6 +220,14 @@ class LinkedList():
 
 
     def delete(self, index):
+        """
+        Deletes the node at the supplied index
+
+        Args:
+            index(int) : index of the node to be deleted
+        Returns:
+            None
+        """
         if index >= self.length():
             raise IndexError("Index out of range")
         cur = self.head
