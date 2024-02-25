@@ -60,12 +60,28 @@ class LinkedList():
                     # Since the old head node is not a sentinel node and will be retained,
                     # we will just be adding in a new node that points to the old head node.
                     # The old head node will retain its link to the next node in the list so
-                    # the integrity of the linked list will be maintained. 
+                    # the integrity of the linked list will be maintained.
                     temp_node = self.head
                     self.head = new_node
                     self.head.next = temp_node
             else:
-                pass
+                # The search begins at element 1 since there is specific logic for replacing
+                # the head node. The node behind the current node needs to be tracked to link
+                # it to the inserted node. An abstracted index counter, cur_idx, is used to
+                # count and find the right value.
+                prev = self.head
+                cur = self.head.next
+                cur_idx = 1
+                while True:
+                    if cur_idx == index:
+                        temp_node = cur
+                        cur = new_node
+                        cur.next = temp_node
+                        prev.next = cur
+                        return
+                    prev = prev.next
+                    cur = cur.next
+                    cur_idx += 1
 
     def length(self):
         """
