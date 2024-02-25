@@ -125,7 +125,6 @@ class LinkedList():
                         cur = cur.next
                         cur_idx += 1
 
-
     def length(self):
         """
         Displays the length of the singly-linked list.
@@ -150,7 +149,6 @@ class LinkedList():
             total += 1
             cur = cur.next
         return total
-
 
     def display(self, mem=False):
         """
@@ -181,7 +179,6 @@ class LinkedList():
                 contents.append((cur.data, hex(id(cur))))
 
         return contents
-
 
     def get_value(self, index):
         """
@@ -217,7 +214,6 @@ class LinkedList():
                     return cur.data
                 cur = cur.next
                 cur_idx += 1
-
 
     def delete(self, index):
         """
